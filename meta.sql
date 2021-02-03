@@ -84,14 +84,14 @@ CREATE TABLE T_WD_APLY
 	WORD_SN int UNIQUE,
 	-- 등록 아이디
 	REGIST_ID varchar(50),
-	-- 등록 일시
-	REGIST_DT date,
 	-- 승인 상태
 	CONFM_STTUS varchar(5) NOT NULL,
 	-- 승인 아이디
 	CONFM_ID varchar(50),
 	-- 승인 일시
 	CONFM_DT date,
+	-- 등록 일시
+	REGIST_DT timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT PK_MT_REQUEST PRIMARY KEY (APLY_SN)
 ) WITHOUT OIDS;
 
@@ -126,11 +126,11 @@ CREATE TABLE T_WD_DOMAIN
 	-- 등록 아이디
 	REGIST_ID varchar(50),
 	-- 등록 일시
-	REGIST_DT date,
+	REGIST_DT timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
 	-- 수정 아이디
 	MODIFY_ID varchar(50),
 	-- 수정 일시
-	MODIFY_DT date,
+	MODIFY_DT timestamp with time zone,
 	CONSTRAINT PK_MT_DOMAIN PRIMARY KEY (DOMAIN_SN)
 ) WITHOUT OIDS;
 
@@ -153,11 +153,11 @@ CREATE TABLE T_WD_TERM
 	-- 등록 아이디
 	REGIST_ID varchar(50),
 	-- 등록 일시
-	REGIST_DT date,
+	REGIST_DT timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
 	-- 수정 아이디
 	MODIFY_ID varchar(50),
 	-- 수정 일시
-	MODIFY_DT date,
+	MODIFY_DT timestamp with time zone,
 	CONSTRAINT PK_MT_TERM PRIMARY KEY (TERM_SN)
 ) WITHOUT OIDS;
 
@@ -178,11 +178,11 @@ CREATE TABLE T_WD_WORD
 	-- 등록 아이디
 	REGIST_ID varchar(50),
 	-- 등록 일시
-	REGIST_DT date,
+	REGIST_DT timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
 	-- 수정 아이디
 	MODIFY_ID varchar(50),
 	-- 수정 일시
-	MODIFY_DT date,
+	MODIFY_DT timestamp with time zone,
 	CONSTRAINT PK_MT_WORD PRIMARY KEY (WORD_SN)
 ) WITHOUT OIDS;
 
@@ -273,10 +273,10 @@ COMMENT ON COLUMN T_WD_APLY.TERM_SN IS '용어 일련번호';
 COMMENT ON COLUMN T_WD_APLY.DOMAIN_SN IS '도메인 일련번호';
 COMMENT ON COLUMN T_WD_APLY.WORD_SN IS '단어 일련번호';
 COMMENT ON COLUMN T_WD_APLY.REGIST_ID IS '등록 아이디';
-COMMENT ON COLUMN T_WD_APLY.REGIST_DT IS '등록 일시';
 COMMENT ON COLUMN T_WD_APLY.CONFM_STTUS IS '승인 상태';
 COMMENT ON COLUMN T_WD_APLY.CONFM_ID IS '승인 아이디';
 COMMENT ON COLUMN T_WD_APLY.CONFM_DT IS '승인 일시';
+COMMENT ON COLUMN T_WD_APLY.REGIST_DT IS '등록 일시';
 COMMENT ON TABLE T_WD_DOMAIN IS '도메인';
 COMMENT ON COLUMN T_WD_DOMAIN.DOMAIN_SN IS '도메인 일련번호';
 COMMENT ON COLUMN T_WD_DOMAIN.DOMAIN_CL IS '도메인 분류';
