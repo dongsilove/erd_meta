@@ -108,6 +108,8 @@ CREATE TABLE T_WD_DOMAIN
 	DOMAIN_SN serial NOT NULL UNIQUE,
 	-- 도메인 분류
 	DOMAIN_CL varchar(5),
+	-- 도메인 표현 명
+	DOMAIN_EXPRSN_NM varchar(200),
 	-- 도메인 명
 	DOMAIN_NM varchar(200) NOT NULL,
 	-- 도메인 영문 약어
@@ -115,7 +117,7 @@ CREATE TABLE T_WD_DOMAIN
 	-- 도메인 영문 명
 	DOMAIN_EN_NM varchar(200) NOT NULL,
 	-- 도메인 설명
-	DOMAIN_DC varchar(300),
+	DOMAIN_DC varchar(2000),
 	-- 데이터 타입
 	DATA_TYPE varchar(100),
 	-- 데이터 길이
@@ -127,7 +129,7 @@ CREATE TABLE T_WD_DOMAIN
 	-- 단위
 	UNIT varchar(50),
 	-- 허용 값 설명
-	PERM_VAL_DC varchar(300),
+	PERM_VAL_DC varchar(2000),
 	-- 등록 아이디
 	REGIST_ID varchar(50),
 	-- 등록 일시
@@ -139,20 +141,20 @@ CREATE TABLE T_WD_DOMAIN
 	CONSTRAINT PK_T_WD_DOMAIN PRIMARY KEY (DOMAIN_SN)
 ) WITHOUT OIDS;
 
-/*
+
 -- 정부단어
 CREATE TABLE T_WD_GOVWORD
 (
 	-- 단어 일련번호
 	WORD_SN serial NOT NULL UNIQUE,
 	-- 단어 명
-	WORD_NM varchar(200) ,
+	WORD_NM varchar(200) NOT NULL UNIQUE,
 	-- 단어 영문 약어
-	WORD_EN_ABBR varchar(100) ,
+	WORD_EN_ABBR varchar(100) NOT NULL,
 	-- 단어 영문 명
-	WORD_EN_NM varchar(200) ,
+	WORD_EN_NM varchar(200) NOT NULL,
 	-- 단어 설명
-	WORD_DC varchar(300),
+	WORD_DC varchar(2000),
 	-- 등록 아이디
 	REGIST_ID varchar(50),
 	-- 등록 일자
@@ -169,36 +171,7 @@ CREATE TABLE T_WD_GOVWORD
 	STTUS_SE varchar(5),
 	CONSTRAINT PK_T_WD_GOVWORD PRIMARY KEY (WORD_SN)
 ) WITHOUT OIDS;
-*/
--- 정부단어
-CREATE TABLE T_WD_GOVWORD
-(
-	-- 단어 일련번호
-	WORD_SN serial NOT NULL UNIQUE,
-	-- 단어 명
-	WORD_NM varchar(200) ,
-	-- 단어 영문 약어
-	WORD_EN_ABBR varchar(100) ,
-	-- 단어 영문 명
-	WORD_EN_NM varchar(200) ,
-	-- 단어 설명
-	WORD_DCV2000 varchar(40000),
-	-- 등록 아이디
-	REGIST_ID varchar(50),
-	-- 등록 일자
-	REGIST_YMD date,
-	-- 수정 아이디
-	MODIFY_ID varchar(50),
-	-- 수정 일자
-	MODIFY_YMD date,
-	-- 단어 구분
-	WORD_SE varchar(10),
-	-- 주제 구분
-	THEMA_SE varchar(200),
-	-- 상태 구분
-	STTUS_SE varchar(100),
-	CONSTRAINT PK_T_WD_GOVWORD PRIMARY KEY (WORD_SN)
-) WITHOUT OIDS;
+
 
 -- 용어
 CREATE TABLE T_WD_TERM
@@ -212,7 +185,7 @@ CREATE TABLE T_WD_TERM
 	-- 용어 영어 명
 	TERM_EN_NM varchar(200),
 	-- 용어 설명
-	TERM_DC varchar(300),
+	TERM_DC varchar(2000),
 	-- 데이터 형식
 	DATA_FOM varchar(100),
 	-- 도메인 일련번호
@@ -241,7 +214,7 @@ CREATE TABLE T_WD_WORD
 	-- 단어 영문 명
 	WORD_EN_NM varchar(200) NOT NULL,
 	-- 단어 설명
-	WORD_DC varchar(300),
+	WORD_DC varchar(2000),
 	-- 등록 아이디
 	REGIST_ID varchar(50),
 	-- 등록 일시
@@ -255,7 +228,7 @@ CREATE TABLE T_WD_WORD
 
 
 
-/* Create Foreign Keys 
+/* Create Foreign Keys */
 
 ALTER TABLE T_AU_DEPT
 	ADD FOREIGN KEY (UPPER_DEPT_CD)
@@ -311,7 +284,7 @@ ALTER TABLE T_WD_APLY
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
-*/
+
 
 
 /* Comments */
@@ -349,6 +322,7 @@ COMMENT ON COLUMN T_WD_APLY.CONFM_DT IS '승인 일시';
 COMMENT ON TABLE T_WD_DOMAIN IS '도메인';
 COMMENT ON COLUMN T_WD_DOMAIN.DOMAIN_SN IS '도메인 일련번호';
 COMMENT ON COLUMN T_WD_DOMAIN.DOMAIN_CL IS '도메인 분류';
+COMMENT ON COLUMN T_WD_DOMAIN.DOMAIN_EXPRSN_NM IS '도메인 표현 명';
 COMMENT ON COLUMN T_WD_DOMAIN.DOMAIN_NM IS '도메인 명';
 COMMENT ON COLUMN T_WD_DOMAIN.DOMAIN_EN_ABBR IS '도메인 영문 약어';
 COMMENT ON COLUMN T_WD_DOMAIN.DOMAIN_EN_NM IS '도메인 영문 명';
