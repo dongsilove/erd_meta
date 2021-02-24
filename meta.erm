@@ -12,7 +12,7 @@
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
 	<x>0</x>
-	<y>0</y>
+	<y>330</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2021-01-14 14:33:56</creation_date>
-			<updated_date>2021-02-24 23:08:15</updated_date>
+			<updated_date>2021-02-24 23:28:11</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -1341,7 +1341,7 @@
 				</relation>
 				<relation>
 					<id>2</id>
-					<source>2</source>
+					<source>8</source>
 					<target>1</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1363,7 +1363,7 @@
 				</relation>
 				<relation>
 					<id>3</id>
-					<source>8</source>
+					<source>2</source>
 					<target>1</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1460,7 +1460,7 @@
 				<normal_column>
 					<id>5</id>
 					<referenced_column>66</referenced_column>
-					<relation>3</relation>
+					<relation>2</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -1528,7 +1528,7 @@
 				<normal_column>
 					<id>7</id>
 					<referenced_column>13</referenced_column>
-					<relation>2</relation>
+					<relation>3</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
