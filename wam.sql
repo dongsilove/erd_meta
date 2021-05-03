@@ -1,9 +1,13 @@
 
 /* Drop Tables */
 
-DROP TABLE IF EXISTS t_am_asst_atrb;
 DROP TABLE IF EXISTS t_am_asst_atrb_default;
 DROP TABLE IF EXISTS t_am_asst_atrb_val;
+DROP TABLE IF EXISTS t_am_asst_atrb;
+DROP TABLE IF EXISTS t_au_dept;
+DROP TABLE IF EXISTS T_CM_CODE;
+DROP TABLE IF EXISTS T_CM_CD_GRP;
+DROP TABLE IF EXISTS t_cm_menu;
 DROP TABLE IF EXISTS public.t_am_asst;
 
 
@@ -30,7 +34,7 @@ CREATE TABLE t_am_asst_atrb
 	modify_id varchar(50),
 	-- 사용여부
 	use_yn char,
-	PRIMARY KEY (atrb_id)
+	CONSTRAINT PK_T_AM_ASST_ATRB PRIMARY KEY (atrb_id)
 ) WITHOUT OIDS;
 
 
@@ -38,9 +42,10 @@ CREATE TABLE t_am_asst_atrb
 CREATE TABLE t_am_asst_atrb_default
 (
 	-- 분류코드
-	cl_cd varchar(5),
+	cl_cd varchar(5) NOT NULL,
 	-- 속성아이디
-	atrb_id varchar(50)
+	atrb_id varchar(50) NOT NULL UNIQUE,
+	PRIMARY KEY (cl_cd, atrb_id)
 ) WITHOUT OIDS;
 
 
@@ -48,11 +53,68 @@ CREATE TABLE t_am_asst_atrb_default
 CREATE TABLE t_am_asst_atrb_val
 (
 	-- 자산일련번호
-	asst_sn int,
+	asst_sn int NOT NULL,
 	-- 속성아이디
-	atrb_id varchar(50),
+	atrb_id varchar(50) NOT NULL UNIQUE,
 	-- 속성내용
-	atrb_cn varchar(1000)
+	atrb_cn varchar(1000),
+	PRIMARY KEY (asst_sn, atrb_id)
+) WITHOUT OIDS;
+
+
+-- 부서
+CREATE TABLE t_au_dept
+(
+	-- 부서코드
+	dept_cd varchar(5) NOT NULL,
+	-- 부서명
+	dept_nm varchar(200),
+	-- 상위부서코드
+	upper_dept_cd varchar(5),
+	-- 권한내용
+	author_cn varchar(1000),
+	PRIMARY KEY (dept_cd)
+) WITHOUT OIDS;
+
+
+-- 코드 그룹
+CREATE TABLE T_CM_CD_GRP
+(
+	-- 그룹 코드
+	GRP_CD varchar(5) NOT NULL,
+	-- 그릅 코드 명
+	GRP_CD_NM varchar(200) NOT NULL,
+	-- 테이블 명
+	TABLE_NM varchar(200),
+	-- 컬럼 명
+	COLUMN_NM varchar(200),
+	CONSTRAINT PK_T_CM_CD_GRP PRIMARY KEY (GRP_CD)
+) WITHOUT OIDS;
+
+
+-- 코드
+CREATE TABLE T_CM_CODE
+(
+	-- 그룹 코드
+	GRP_CD varchar(5) NOT NULL,
+	-- 코드
+	CD varchar(5) NOT NULL,
+	-- 코드 명
+	CD_NM varchar(200) NOT NULL,
+	CONSTRAINT PK_T_CM_CODE PRIMARY KEY (GRP_CD, CD)
+) WITHOUT OIDS;
+
+
+-- 메뉴
+CREATE TABLE t_cm_menu
+(
+	-- 메뉴아이디
+	menu_id varchar(50) NOT NULL,
+	-- 메뉴명
+	menu_nm varchar(200),
+	-- 상위메뉴아이디
+	upper_menu_id varchar(50),
+	PRIMARY KEY (menu_id)
 ) WITHOUT OIDS;
 
 
@@ -106,9 +168,9 @@ CREATE TABLE public.t_am_asst
 	-- 수량
 	co numeric,
 	-- 형식명
-	--fom_nm varchar(200),
+	fom_nm varchar(200),
 	-- 규격명(동력)
-	--stndrd_nm varchar(200),
+	stndrd_nm varchar(200),
 	-- 설치일
 	install_ymd char(10),
 	-- 모델명
@@ -135,12 +197,28 @@ CREATE TABLE public.t_am_asst
 	modify_id varchar(50),
 	-- 수정 일시
 	modify_dt date,
-	CONSTRAINT pk_t_am_asst PRIMARY KEY (asst_sn)
+	CONSTRAINT pk_t_am_asst_fclty PRIMARY KEY (asst_sn)
 ) WITHOUT OIDS;
 
 
 
 /* Create Foreign Keys */
+
+ALTER TABLE t_am_asst_atrb_default
+	ADD FOREIGN KEY (atrb_id)
+	REFERENCES t_am_asst_atrb (atrb_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE t_am_asst_atrb_val
+	ADD FOREIGN KEY (atrb_id)
+	REFERENCES t_am_asst_atrb (atrb_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
 
 ALTER TABLE T_CM_CODE
 	ADD CONSTRAINT FK_CM_CODE_GRP_CD FOREIGN KEY (GRP_CD)
@@ -150,11 +228,19 @@ ALTER TABLE T_CM_CODE
 ;
 
 
+ALTER TABLE t_am_asst_atrb_val
+	ADD FOREIGN KEY (asst_sn)
+	REFERENCES public.t_am_asst (asst_sn)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
 
 /* Comments */
 
 COMMENT ON TABLE t_am_asst_atrb IS '자산속성';
-COMMENT ON COLUMN t_am_asst_atrb.atrb_cd IS '속성아이디';
+COMMENT ON COLUMN t_am_asst_atrb.atrb_id IS '속성아이디';
 COMMENT ON COLUMN t_am_asst_atrb.atrb_nm IS '속성명';
 COMMENT ON COLUMN t_am_asst_atrb.atrb_dc IS '속성설명';
 COMMENT ON COLUMN t_am_asst_atrb.regist_dt IS '등록 일시';
@@ -164,12 +250,29 @@ COMMENT ON COLUMN t_am_asst_atrb.modify_id IS '수정 아이디';
 COMMENT ON COLUMN t_am_asst_atrb.use_yn IS '사용여부';
 COMMENT ON TABLE t_am_asst_atrb_default IS '자산속성기본설정';
 COMMENT ON COLUMN t_am_asst_atrb_default.cl_cd IS '분류코드';
-COMMENT ON COLUMN t_am_asst_atrb_default.atrb_cd IS '속성아이디';
+COMMENT ON COLUMN t_am_asst_atrb_default.atrb_id IS '속성아이디';
 COMMENT ON TABLE t_am_asst_atrb_val IS '자산속성값';
 COMMENT ON COLUMN t_am_asst_atrb_val.asst_sn IS '자산일련번호';
-COMMENT ON COLUMN t_am_asst_atrb_val.atrb_cd IS '속성아이디';
+COMMENT ON COLUMN t_am_asst_atrb_val.atrb_id IS '속성아이디';
 COMMENT ON COLUMN t_am_asst_atrb_val.atrb_cn IS '속성내용';
-
+COMMENT ON TABLE t_au_dept IS '부서';
+COMMENT ON COLUMN t_au_dept.dept_cd IS '부서코드';
+COMMENT ON COLUMN t_au_dept.dept_nm IS '부서명';
+COMMENT ON COLUMN t_au_dept.upper_dept_cd IS '상위부서코드';
+COMMENT ON COLUMN t_au_dept.author_cn IS '권한내용';
+COMMENT ON TABLE T_CM_CD_GRP IS '코드 그룹';
+COMMENT ON COLUMN T_CM_CD_GRP.GRP_CD IS '그룹 코드';
+COMMENT ON COLUMN T_CM_CD_GRP.GRP_CD_NM IS '그릅 코드 명';
+COMMENT ON COLUMN T_CM_CD_GRP.TABLE_NM IS '테이블 명';
+COMMENT ON COLUMN T_CM_CD_GRP.COLUMN_NM IS '컬럼 명';
+COMMENT ON TABLE T_CM_CODE IS '코드';
+COMMENT ON COLUMN T_CM_CODE.GRP_CD IS '그룹 코드';
+COMMENT ON COLUMN T_CM_CODE.CD IS '코드';
+COMMENT ON COLUMN T_CM_CODE.CD_NM IS '코드 명';
+COMMENT ON TABLE t_cm_menu IS '메뉴';
+COMMENT ON COLUMN t_cm_menu.menu_id IS '메뉴아이디';
+COMMENT ON COLUMN t_cm_menu.menu_nm IS '메뉴명';
+COMMENT ON COLUMN t_cm_menu.upper_menu_id IS '상위메뉴아이디';
 COMMENT ON TABLE public.t_am_asst IS '자산';
 COMMENT ON COLUMN public.t_am_asst.asst_sn IS '자산일련번호';
 COMMENT ON COLUMN public.t_am_asst.asst_se IS '자산구분';
@@ -194,8 +297,8 @@ COMMENT ON COLUMN public.t_am_asst.now_rsvmney_sm IS '현재충당금계';
 COMMENT ON COLUMN public.t_am_asst.now_acntbk_am IS '현재장부액';
 COMMENT ON COLUMN public.t_am_asst.yr_dprt_am IS '연상각액';
 COMMENT ON COLUMN public.t_am_asst.co IS '수량';
---COMMENT ON COLUMN public.t_am_asst.fom_nm IS '형식명';
---COMMENT ON COLUMN public.t_am_asst.stndrd_nm IS '규격명(동력)';
+COMMENT ON COLUMN public.t_am_asst.fom_nm IS '형식명';
+COMMENT ON COLUMN public.t_am_asst.stndrd_nm IS '규격명(동력)';
 COMMENT ON COLUMN public.t_am_asst.install_ymd IS '설치일';
 COMMENT ON COLUMN public.t_am_asst.model_nm IS '모델명';
 COMMENT ON COLUMN public.t_am_asst.model_nov IS '모델번호';
