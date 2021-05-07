@@ -4,7 +4,9 @@
 DROP TABLE IF EXISTS t_am_asst_atrb_default;
 DROP TABLE IF EXISTS t_am_asst_atrb_val;
 DROP TABLE IF EXISTS t_am_asst_atrb;
+DROP TABLE IF EXISTS T_AM_USLFSVC;
 DROP TABLE IF EXISTS t_au_dept;
+DROP TABLE IF EXISTS t_au_user_grp;
 DROP TABLE IF EXISTS T_CM_CODE;
 DROP TABLE IF EXISTS T_CM_CD_GRP;
 DROP TABLE IF EXISTS t_cm_menu;
@@ -62,6 +64,23 @@ CREATE TABLE t_am_asst_atrb_val
 ) WITHOUT OIDS;
 
 
+-- 내용연수
+CREATE TABLE T_AM_USLFSVC
+(
+	-- 내용연수코드
+	USLFSVC_CD varchar(5) NOT NULL,
+	-- 시설구분
+	FCLTY_SE varchar(50),
+	-- 용도속성
+	PRPOS_ATRB varchar(100),
+	-- 내용연수설명
+	USLFSVC_DC varchar(2000),
+	-- 내용연수
+	USLFSVC_CO numeric,
+	PRIMARY KEY (USLFSVC_CD)
+) WITHOUT OIDS;
+
+
 -- 부서
 CREATE TABLE t_au_dept
 (
@@ -71,9 +90,20 @@ CREATE TABLE t_au_dept
 	dept_nm varchar(200),
 	-- 상위부서코드
 	upper_dept_cd varchar(5),
+	PRIMARY KEY (dept_cd)
+) WITHOUT OIDS;
+
+
+-- 사용자그룹
+CREATE TABLE t_au_user_grp
+(
+	-- 그룹코드
+	grp_cd varchar(5) NOT NULL,
+	-- 그룹명
+	grp_nm varchar(200),
 	-- 권한내용
 	author_cn varchar(1000),
-	PRIMARY KEY (dept_cd)
+	PRIMARY KEY (grp_cd)
 ) WITHOUT OIDS;
 
 
@@ -255,11 +285,20 @@ COMMENT ON TABLE t_am_asst_atrb_val IS '자산속성값';
 COMMENT ON COLUMN t_am_asst_atrb_val.asst_sn IS '자산일련번호';
 COMMENT ON COLUMN t_am_asst_atrb_val.atrb_id IS '속성아이디';
 COMMENT ON COLUMN t_am_asst_atrb_val.atrb_cn IS '속성내용';
+COMMENT ON TABLE T_AM_USLFSVC IS '내용연수';
+COMMENT ON COLUMN T_AM_USLFSVC.USLFSVC_CD IS '내용연수코드';
+COMMENT ON COLUMN T_AM_USLFSVC.FCLTY_SE IS '시설구분';
+COMMENT ON COLUMN T_AM_USLFSVC.PRPOS_ATRB IS '용도속성';
+COMMENT ON COLUMN T_AM_USLFSVC.USLFSVC_DC IS '내용연수설명';
+COMMENT ON COLUMN T_AM_USLFSVC.USLFSVC_CO IS '내용연수';
 COMMENT ON TABLE t_au_dept IS '부서';
 COMMENT ON COLUMN t_au_dept.dept_cd IS '부서코드';
 COMMENT ON COLUMN t_au_dept.dept_nm IS '부서명';
 COMMENT ON COLUMN t_au_dept.upper_dept_cd IS '상위부서코드';
-COMMENT ON COLUMN t_au_dept.author_cn IS '권한내용';
+COMMENT ON TABLE t_au_user_grp IS '사용자그룹';
+COMMENT ON COLUMN t_au_user_grp.grp_cd IS '그룹코드';
+COMMENT ON COLUMN t_au_user_grp.grp_nm IS '그룹명';
+COMMENT ON COLUMN t_au_user_grp.author_cn IS '권한내용';
 COMMENT ON TABLE T_CM_CD_GRP IS '코드 그룹';
 COMMENT ON COLUMN T_CM_CD_GRP.GRP_CD IS '그룹 코드';
 COMMENT ON COLUMN T_CM_CD_GRP.GRP_CD_NM IS '그릅 코드 명';
