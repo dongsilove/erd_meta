@@ -1,0 +1,64 @@
+물리명,논리명,형식,설명
+ASST_CNFIRM_YN,자산확인여부,char(1),자산확인여부
+ASST_NM,자산명,varchar(200),자산명
+ASST_SE,자산구분,varchar(50),"시설, 관망"
+ASST_SN,자산일련번호,int,자산일련번호
+ATRB_CN,속성내용,varchar(1000),속성값
+ATRB_DC,속성설명,varchar(2000),
+ATRB_ID,속성아이디,varchar(50),
+ATRB_NM,속성명,varchar(200),
+AUTHOR_CN,권한내용,varchar(1000),
+CD,코드,varchar(5),
+CD_NM,코드 명,varchar(200),
+CL_CD,분류코드,varchar(5),
+CO,수량,numeric,수량
+COLUMN_NM,컬럼 명,varchar(200),
+DEPT_CD,부서코드,varchar(5),
+DEPT_NM,부서명,varchar(200),
+FCLTY_SE,시설구분,varchar(50),
+FOM_NM,형식명,varchar(200),형식명
+FRST_ACQS_PC,최초취득가,numeric,최초취득가
+FRST_ACQS_YMD,최초취득일,char(10),최초취득일
+GRP_CD,그룹 코드,varchar(5),
+GRP_CD,그룹코드,varchar(5),
+GRP_CD_NM,그릅 코드 명,varchar(200),
+GRP_NM,그룹명,varchar(200),
+INDEX_SE,색인구분,varchar(50),색인구분
+INSTALL_YMD,설치일,char(10),설치일
+LCLAS_NM,대분류명,varchar(200),대분류명
+LOCPLC_NM,소재지명(설치위치),varchar(200),소재지명(설치위치)
+MAKR_NM,제조사명,varchar(200),제조사명
+MCLAS_NM,중분류명,varchar(200),중분류명
+MENU_ID,메뉴아이디,varchar(50),
+MENU_NM,메뉴명,varchar(200),
+MODEL_NM,모델명,varchar(200),모델명
+MODEL_NOV,모델번호,varchar(20),모델번호
+MODIFY_DT,수정 일시,date,수정 일시
+MODIFY_ID,수정 아이디,varchar(50),수정 아이디
+MTRQLT_NM,재질명,varchar(200),재질명
+NOW_ACNTBK_AM,현재장부액,numeric,현재장부액
+NOW_ACQS_PC,현재취득가,numeric,현재취득가
+NOW_RSVMNEY_SM,현재충당금계,numeric,현재충당금계
+NOW_USLFSVC_CO,현재내용년수,numeric,현재내용년수
+PRC_CD,공정코드,varchar(5),
+PRPOS_ATRB,용도속성,varchar(100),
+PSITN_NM,소속명,varchar(200),소속명
+REGIST_DT,등록 일시,date,등록 일시
+REGIST_ID,등록 아이디,varchar(50),등록 아이디
+REVAL_AM,재평가액,numeric,재평가액
+REVAL_YMD,재평가일,char(10),재평가일
+RM,비고,varchar(200),비고
+SCLAS_NM,소분류명,varchar(200),소분류명
+SPLSYS_CD,공급계통코드,varchar(5),공급계통명
+SPLSYS_LOCPLC_NM,공급계통소재지명,varchar(200),
+STNDRD_NM,규격명(동력),varchar(200),규격명(동력)
+STRUCT_NM,구조명,varchar(200),구조명
+TABLE_NM,테이블 명,varchar(200),
+UPPER_DEPT_CD,상위부서코드,varchar(5),
+UPPER_MENU_ID,상위메뉴아이디,varchar(50),
+USE_YN,사용여부,char,사용여부
+USLFSVC_CD,내용연수코드,varchar(5),
+USLFSVC_CO,내용연수,numeric,
+USLFSVC_DC,내용연수설명,varchar(2000),
+WORKTYPE_CD,공종코드,varchar(5),
+YR_DPRT_AM,연상각액,numeric,연상각액
