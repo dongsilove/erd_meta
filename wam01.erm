@@ -12,7 +12,7 @@
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
 	<x>0</x>
-	<y>189</y>
+	<y>164</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2021-05-17 09:19:29</creation_date>
-			<updated_date>2021-05-26 18:04:27</updated_date>
+			<updated_date>2021-05-28 14:07:14</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -875,7 +875,7 @@
 		</word>
 		<word>
 			<id>44</id>
-			<length>5</length>
+			<length>200</length>
 			<decimal>null</decimal>
 			<array>false</array>
 			<array_dimension>null</array_dimension>
@@ -885,8 +885,8 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>도로 유형</logical_name>
-			<physical_name>road_ty</physical_name>
+			<logical_name>도로 유형 명</logical_name>
+			<physical_name>road_ty_nm</physical_name>
 			<type>varchar(n)</type>
 		</word>
 		<word>
@@ -1125,7 +1125,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>39</word_id>
+					<word_id>38</word_id>
 					<id>1</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1814,7 +1814,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>39</word_id>
+					<word_id>38</word_id>
 					<id>18</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2143,7 +2143,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>38</word_id>
+					<word_id>39</word_id>
 					<id>27</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3076,7 +3076,7 @@
 					<auto_increment>false</auto_increment>
 					<foreign_key>true</foreign_key>
 					<not_null>true</not_null>
-					<primary_key>false</primary_key>
+					<primary_key>true</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
 					<collation></collation>
